@@ -1,0 +1,21 @@
+{
+  "name": "tj-agents",
+  "description": "Portable, idiomatic Bash scripting conventions, failure handling and verification.",
+  "owner": {
+    "name": "TJ Agents contributors"
+  },
+  "plugins": [
+    {
+      "name": "bash",
+      "source": "./plugins/bash",
+      "description": "Portable, idiomatic Bash scripting conventions, failure handling and verification.",
+      "category": "Productivity",
+      "keywords": [
+        "bash",
+        "shell",
+        "shellcheck",
+        "shfmt"
+      ]
+    }
+  ]
+}

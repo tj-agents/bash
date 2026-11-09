@@ -1,0 +1,20 @@
+{
+  "name": "tj-agents",
+  "interface": {
+    "displayName": "Bash"
+  },
+  "plugins": [
+    {
+      "name": "bash",
+      "source": {
+        "source": "local",
+        "path": "./plugins/bash"
+      },
+      "policy": {
+        "installation": "INSTALLED_BY_DEFAULT",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

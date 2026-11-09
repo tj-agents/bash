@@ -1,0 +1,183 @@
+{
+  "plugin": "bash",
+  "dependencies": [
+    "tj-agents/base",
+    "tj-agents/engineering"
+  ],
+  "profiles": {
+    "core": [
+      "build",
+      "domain-design",
+      "errors",
+      "libraries",
+      "structure",
+      "style",
+      "testing"
+    ],
+    "knowledge": [
+      "direction",
+      "knowledge",
+      "learning"
+    ],
+    "scaffold": [
+      "scaffold"
+    ]
+  },
+  "compatibilitySkillAliases": {},
+  "skills": [
+    {
+      "name": "build",
+      "kind": "convention",
+      "profile": "core",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "direction",
+      "kind": "knowledge",
+      "profile": "knowledge",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "domain-design",
+      "kind": "convention",
+      "profile": "core",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "errors",
+      "kind": "convention",
+      "profile": "core",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "knowledge",
+      "kind": "knowledge",
+      "profile": "knowledge",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "learning",
+      "kind": "policy",
+      "profile": "knowledge",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "libraries",
+      "kind": "convention",
+      "profile": "core",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "scaffold",
+      "kind": "utility",
+      "profile": "scaffold",
+      "applicability": [
+        "new standalone Bash utilities"
+      ],
+      "requires": [
+        "python"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "structure",
+      "kind": "convention",
+      "profile": "core",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "style",
+      "kind": "convention",
+      "profile": "core",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    },
+    {
+      "name": "testing",
+      "kind": "convention",
+      "profile": "core",
+      "applicability": [
+        "Bash scripts and sourced Bash libraries"
+      ],
+      "requires": [
+        "bash"
+      ],
+      "provenance": [
+        "house"
+      ]
+    }
+  ]
+}

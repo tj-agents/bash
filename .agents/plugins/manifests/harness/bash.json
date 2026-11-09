@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "plugin": "tj-agents/bash",
+  "source_roots": [".agents/bash"],
+  "requires": {"marketplaces": [{"id": "tj-agents", "repository": "tj-agents/marketplace"}], "plugins": ["tj-agents/bash"], "hooks": [], "permissions": {"claude_allow": [], "codex_prefix_rules": []}}
+}

@@ -1,0 +1,19 @@
+{
+  "name": "bash",
+  "description": "Portable, idiomatic Bash scripting conventions, failure handling and verification.",
+  "author": {
+    "name": "TJ Agents contributors"
+  },
+  "repository": "https://github.com/tj-agents/bash",
+  "skills": "./skills/",
+  "keywords": ["bash", "shell", "shellcheck", "shfmt"],
+  "interface": {
+    "displayName": "Bash",
+    "shortDescription": "Portable, idiomatic Bash scripting conventions, failure handling and verification.",
+    "longDescription": "Portable, idiomatic Bash scripting conventions, failure handling and verification. Follow the Template main branch and run template:update to refresh vendored files.",
+    "developerName": "TJ Agents contributors",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Teach me the next Bash concept my current task needs."
+  }
+}

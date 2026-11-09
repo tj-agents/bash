@@ -1,0 +1,11 @@
+{
+  "name": "bash",
+  "displayName": "Bash",
+  "description": "Portable, idiomatic Bash scripting conventions, failure handling and verification.",
+  "author": {
+    "name": "TJ Agents contributors"
+  },
+  "repository": "https://github.com/tj-agents/bash",
+  "skills": "./skills/",
+  "keywords": ["bash", "shell", "shellcheck", "shfmt"]
+}

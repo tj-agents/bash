@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "tier": "bash",
+  "stack": "Bash",
+  "applies": "stack-present",
+  "owner_repository": [
+    "tj-agents/bash"
+  ],
+  "detect": {
+    "files": [
+      ".bash-version",
+      ".bashrc",
+      ".bash_profile",
+      ".bash_login"
+    ],
+    "globs": [
+      "*.bash"
+    ],
+    "content": [
+      {
+        "glob": "*",
+        "pattern": "(?m)^#![ \\t]*(?:/[^ \\t\\r\\n]*/bash|/[^ \\t\\r\\n]*/env[ \\t]+(?:-S[ \\t]+)?bash)(?:[ \\t]|$)"
+      }
+    ]
+  }
+}

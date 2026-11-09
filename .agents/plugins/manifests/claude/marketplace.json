@@ -1,0 +1,6 @@
+{
+  "description": "Portable, idiomatic Bash scripting conventions, failure handling and verification.",
+  "owner": {
+    "name": "TJ Agents contributors"
+  }
+}
