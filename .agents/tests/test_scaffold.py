@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
-from pathlib import Path
+from pathlib import Path, PurePath, PureWindowsPath
 
 SCRIPT = (
     Path(__file__).resolve().parents[1] / "bash/utility/scaffold/scripts/scaffold.py"
@@ -19,14 +19,23 @@ scaffold = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(scaffold)
 
 
+def git_bash_candidates(git: PurePath) -> list[PurePath]:
+    """Cover Git's cmd/bin and mingw64/bin executable layouts."""
+    return [
+        parent / relative
+        for parent in tuple(git.parents)[1:3]
+        for relative in ("bin/bash.exe", "usr/bin/bash.exe")
+    ]
+
+
 def bash_executable() -> str:
     """Use Git Bash on Windows, avoiding the unconfigured WSL system alias."""
     if os.name == "nt":
         git = shutil.which("git")
         if git is not None:
-            candidate = Path(git).resolve().parents[1] / "bin/bash.exe"
-            if candidate.is_file():
-                return str(candidate)
+            for candidate in git_bash_candidates(Path(git).resolve()):
+                if Path(candidate).is_file():
+                    return str(candidate)
         raise RuntimeError("These tests require native Git Bash on Windows")
     executable = shutil.which("bash")
     if executable is None:
@@ -35,6 +44,13 @@ def bash_executable() -> str:
 
 
 class ScaffoldTests(unittest.TestCase):
+    def test_git_bash_lookup_supports_native_git_path_layouts(self) -> None:
+        root = PureWindowsPath("C:/Program Files/Git")
+        for relative in ("cmd/git.exe", "bin/git.exe", "mingw64/bin/git.exe"):
+            candidates = git_bash_candidates(root / relative)
+            self.assertIn(root / "bin/bash.exe", candidates)
+            self.assertIn(root / "usr/bin/bash.exe", candidates)
+
     def test_generated_command_in_path_with_spaces(self) -> None:
         with tempfile.TemporaryDirectory(prefix="bash project ") as directory:
             target = scaffold.create(Path(directory), "report")
