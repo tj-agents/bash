@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import importlib.util
+import os
+import shutil
 import subprocess
 import tempfile
 import unittest
-from pathlib import Path
+from pathlib import Path, PurePath, PureWindowsPath
 
 SCRIPT = (
     Path(__file__).resolve().parents[1] / "bash/utility/scaffold/scripts/scaffold.py"
@@ -17,16 +19,48 @@ scaffold = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(scaffold)
 
 
+def git_bash_candidates(git: PurePath) -> list[PurePath]:
+    """Cover Git's cmd/bin and mingw64/bin executable layouts."""
+    return [
+        parent / relative
+        for parent in tuple(git.parents)[1:3]
+        for relative in ("bin/bash.exe", "usr/bin/bash.exe")
+    ]
+
+
+def bash_executable() -> str:
+    """Use Git Bash on Windows, avoiding the unconfigured WSL system alias."""
+    if os.name == "nt":
+        git = shutil.which("git")
+        if git is not None:
+            for candidate in git_bash_candidates(Path(git).resolve()):
+                if Path(candidate).is_file():
+                    return str(candidate)
+        raise RuntimeError("These tests require native Git Bash on Windows")
+    executable = shutil.which("bash")
+    if executable is None:
+        raise RuntimeError("These tests require Bash")
+    return executable
+
+
 class ScaffoldTests(unittest.TestCase):
+    def test_git_bash_lookup_supports_native_git_path_layouts(self) -> None:
+        root = PureWindowsPath("C:/Program Files/Git")
+        for relative in ("cmd/git.exe", "bin/git.exe", "mingw64/bin/git.exe"):
+            candidates = git_bash_candidates(root / relative)
+            self.assertIn(root / "bin/bash.exe", candidates)
+            self.assertIn(root / "usr/bin/bash.exe", candidates)
+
     def test_generated_command_in_path_with_spaces(self) -> None:
         with tempfile.TemporaryDirectory(prefix="bash project ") as directory:
             target = scaffold.create(Path(directory), "report")
             command = target / "bin/report"
-            syntax = subprocess.run(["bash", "-n", str(command)], check=False)
+            bash = bash_executable()
+            syntax = subprocess.run([bash, "-n", command.as_posix()], check=False)
             self.assertEqual(syntax.returncode, 0)
             for arguments in ([], ["--help"]):
                 result = subprocess.run(
-                    ["bash", str(command), *arguments],
+                    [bash, command.as_posix(), *arguments],
                     capture_output=True,
                     text=True,
                     check=False,
@@ -36,7 +70,7 @@ class ScaffoldTests(unittest.TestCase):
                 self.assertEqual(result.stderr, "")
             for arguments in (["bad"], ["--help", "extra"], [""]):
                 result = subprocess.run(
-                    ["bash", str(command), *arguments],
+                    [bash, command.as_posix(), *arguments],
                     capture_output=True,
                     text=True,
                     check=False,
