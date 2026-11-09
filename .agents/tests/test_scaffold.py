@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import importlib.util
+import os
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -17,16 +19,32 @@ scaffold = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(scaffold)
 
 
+def bash_executable() -> str:
+    """Use Git Bash on Windows, avoiding the unconfigured WSL system alias."""
+    if os.name == "nt":
+        git = shutil.which("git")
+        if git is not None:
+            candidate = Path(git).resolve().parents[1] / "bin/bash.exe"
+            if candidate.is_file():
+                return str(candidate)
+        raise RuntimeError("These tests require native Git Bash on Windows")
+    executable = shutil.which("bash")
+    if executable is None:
+        raise RuntimeError("These tests require Bash")
+    return executable
+
+
 class ScaffoldTests(unittest.TestCase):
     def test_generated_command_in_path_with_spaces(self) -> None:
         with tempfile.TemporaryDirectory(prefix="bash project ") as directory:
             target = scaffold.create(Path(directory), "report")
             command = target / "bin/report"
-            syntax = subprocess.run(["bash", "-n", str(command)], check=False)
+            bash = bash_executable()
+            syntax = subprocess.run([bash, "-n", command.as_posix()], check=False)
             self.assertEqual(syntax.returncode, 0)
             for arguments in ([], ["--help"]):
                 result = subprocess.run(
-                    ["bash", str(command), *arguments],
+                    [bash, command.as_posix(), *arguments],
                     capture_output=True,
                     text=True,
                     check=False,
@@ -36,7 +54,7 @@ class ScaffoldTests(unittest.TestCase):
                 self.assertEqual(result.stderr, "")
             for arguments in (["bad"], ["--help", "extra"], [""]):
                 result = subprocess.run(
-                    ["bash", str(command), *arguments],
+                    [bash, command.as_posix(), *arguments],
                     capture_output=True,
                     text=True,
                     check=False,
