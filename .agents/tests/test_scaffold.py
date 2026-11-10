@@ -21,11 +21,10 @@ SPEC.loader.exec_module(scaffold)
 
 def git_bash_candidates(git: PurePath) -> list[PurePath]:
     """Cover Git's cmd/bin and mingw64/bin executable layouts."""
-    return [
-        parent / relative
-        for parent in tuple(git.parents)[1:3]
-        for relative in ("bin/bash.exe", "usr/bin/bash.exe")
-    ]
+    candidates: list[PurePath] = []
+    for parent in tuple(git.parents)[1:3]:
+        candidates.extend([parent / "bin/bash.exe", parent / "usr/bin/bash.exe"])
+    return candidates
 
 
 def bash_executable() -> str:
