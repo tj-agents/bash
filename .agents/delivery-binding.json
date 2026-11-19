@@ -1,0 +1,32 @@
+{
+  "authorization_resolution": {
+    "standing": "absent",
+    "stopped_by": {
+      "class": "ci-workflow",
+      "path": ".github/workflows/ci.yml"
+    }
+  },
+  "auto_merge": false,
+  "bound_at": "2026-11-10T17:24:50.104002+00:00",
+  "branch": "Fix/WorkflowStandardsSweep",
+  "changed_path_count": 1,
+  "completion_condition": "PR published; coordinator claude:5ed8d853-d8b1-4587-81f9-c4e3254d8c84 owns CI and Tommy approval via the canonical handoff report; no merge authorized.",
+  "head": "5a6760f46c2ea0d8ae031bc3e3d7ccd21db7fe03",
+  "merge_authorization": {
+    "instruction": null,
+    "mode": "absent"
+  },
+  "pending_evidence": [],
+  "pr": 3,
+  "pr_url": "https://github.com/tj-agents/bash/pull/3",
+  "repo": "tj-agents/bash",
+  "review": {
+    "reviewed_sha": "5a6760f46c2ea0d8ae031bc3e3d7ccd21db7fe03",
+    "work_order": "C:\\Users\\TommySeery\\source\\repos\\tj-agents\\bash\\.git\\agent-workflow\\reviews\\e6aaa5053b3c85b405aee46dc827fa31c22da3c3c74c4af14667dcdbbed19096\\work-order.md",
+    "work_order_order": [
+      "full"
+    ]
+  },
+  "schema_version": 1,
+  "worktree": "C:\\Users\\TommySeery\\source\\repos\\tj-agents\\bash.worktrees\\Fix-WorkflowGate-20261110"
+}
